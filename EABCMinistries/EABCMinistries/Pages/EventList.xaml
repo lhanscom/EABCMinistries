@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EABCMinistries.Pages.EventList">
+  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  
+  <ContentPage.Content>
+    <AbsoluteLayout>
+      <AbsoluteLayout.Children>
+        <ListView ItemsSource="{Binding Events}" 
+                  CachingStrategy="RecycleElement" 
+                  RowHeight="60" 
+                  HasUnevenRows="false" 
+                  ItemTapped="ItemTapped" 
+                  IsPullToRefreshEnabled="true" 
+                  RefreshCommand="{Binding GetEvents}" 
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                  AbsoluteLayout.LayoutFlags="All" 
+                  AbsoluteLayout.LayoutBounds="0,0,1,1">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell StyleId="disclosure" Height="60">
+                <ContentView Padding="10,0,0,0">
+                  <StackLayout Spacing="0">
+                    <Label Text="{Binding Name}" HeightRequest="20" VerticalTextAlignment="End" LineBreakMode="TailTruncation" TextColor="Silver" />
+                    <Label Text="{Binding Description}" HeightRequest="20" VerticalTextAlignment="End" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
+                    <Label Text="{Binding Start}" HeightRequest="20" VerticalTextAlignment="Start" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
+                  </StackLayout>
+                </ContentView>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
+        <Label Text="Done" VerticalOptions="Center" HorizontalOptions="Center" />
+        </AbsoluteLayout.Children>
+      </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
