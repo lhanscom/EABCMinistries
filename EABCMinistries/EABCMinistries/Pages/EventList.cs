@@ -54,25 +54,41 @@ namespace EABCMinistries.Pages
             var nameLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Medium) };
             nameLabel.SetBinding(Label.TextProperty, "Name");
 
+            var startDateLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Medium) };
+            startDateLabel.SetBinding(Label.TextProperty, "StartDate");
+
             var descriptionLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Small) };
             descriptionLabel.SetBinding(Label.TextProperty, "Description");
 
             var cell = new ViewCell
             {
-                View = GetView(nameLabel, descriptionLabel)
+                View = GetView(nameLabel, startDateLabel, descriptionLabel)
             };
 
             return cell;
 
         }
 
-        private static StackLayout GetView(Label nameLabel, Label descriptionLabel)
+        private static View GetView(Label nameLabel, Label startDateLabel, Label descriptionLabel)
         {
+            //var absLayout = new AbsoluteLayout()
+            //{
+            //    Children =
+            //    {
+            //        startDateLabel,
+            //        nameLabel,
+            //        descriptionLabel
+            //    }
+            //};
+           
+            //return absLayout;
+
             var layout = new StackLayout
             {
                 Spacing = 1,
                 Children =
                 {
+                    startDateLabel,
                     nameLabel,
                     descriptionLabel
                 }
