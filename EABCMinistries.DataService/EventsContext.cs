@@ -12,8 +12,8 @@ namespace EABCMinistries.DataService
         {
             return new List<EventModel>()
             {
-                new EventModel() {Name = "First Event", Description = "<div><b>First Event Description</b></div>", Start = new DateTime(2016,7,12)},
-                new EventModel() {Name = "Second Event", Description = "<div><b>Second Event Description</b></div>", Start = new DateTime(2016,8,12)}
+                new EventModel() {Name = "First Event", Description = "First Event Description", Start = new DateTime(2016,7,12)},
+                new EventModel() {Name = "Second Event", Description = "Second Event Description", Start = new DateTime(2016,8,12)}
             };
         }
     }

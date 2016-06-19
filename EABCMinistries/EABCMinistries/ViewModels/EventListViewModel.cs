@@ -19,9 +19,12 @@ namespace EABCMinistries.ViewModels
         {
             _eventsContext = eventsContext;
             Events = new ObservableRangeCollection<EventModel>();
+            MainText = "Upcoming Events";
         }
 
         public ObservableRangeCollection<EventModel> Events { get; set; }
+
+        public string MainText { get; set; }
 
         public Command GetEvents => _getEvents ?? (_getEvents = new Command(async () => await ExecuteGetEventsCommand()));
 
