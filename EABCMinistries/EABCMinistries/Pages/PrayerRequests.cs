@@ -18,14 +18,20 @@ namespace EABCMinistries.Pages
         public PrayerRequests(PrayerRequestViewModel vm)
         {
             BindingContext = vm;
+            ToolbarItems.Add(new ToolbarItem("New", null, NewPrayerRequest));
             Content = new StackLayout
-            {
+            {                
                 Children = {
                     new Label { Text = "Prayer Requests" },
                     GetRepeaterView()
                 }
             };
             ViewModel.GetPrayerRequests.Execute(null);
+        }
+
+        private void NewPrayerRequest()
+        {
+            ViewModel.PrayerRequestCollection.Add( new PrayerRequestModel() {Created = DateTime.Now, PrayerRequestId = ViewModel.PrayerRequestCollection.Count + 1, Request = "New Request"});
         }
 
         private RepeaterView<PrayerRequestModel> GetRepeaterView()

@@ -12,18 +12,20 @@ namespace EABCMinistries.Pages
 {
     public partial class EventList : ContentPage
     {
+        private Label _nameLabel;
+        private Label _startDateLabel;
+        private Label _descriptionLabel;
+        private Button _detailsButton;
+
         protected EventListViewModel ViewModel => BindingContext as EventListViewModel;
 
         public EventList(EventListViewModel vm)
         {
             BindingContext = vm;
-            BackgroundColor = Color.Red.WithLuminosity(0.9);
+            BackgroundColor = Color.Black;
 
             this.IsBusy = true;
-
-            //var vm = new EventListViewModel(new DataService.EventsContext());
-            //BindingContext = vm;
-            
+           
             var repeater = GetRepeaterView();
 
             Content = new StackLayout
@@ -32,11 +34,6 @@ namespace EABCMinistries.Pages
                 Spacing = 5,
                 Children =
                 {
-                    new Label
-                    {
-                        Text = "Events",
-                        Font = Font.SystemFontOfSize(NamedSize.Large)
-                    },
                     repeater
                 }
             };
@@ -62,50 +59,59 @@ namespace EABCMinistries.Pages
 
         private ViewCell GetEventsTemplate()
         {
-            var nameLabel = new Label
+            _nameLabel = new Label
             {
                 FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                 LineBreakMode = LineBreakMode.TailTruncation,
-                TextColor = Color.Black
+                TextColor = Color.White
             };
-            nameLabel.SetBinding(Label.TextProperty, "Name");
-            
+            _nameLabel.SetBinding(Label.TextProperty, "Name");            
 
-            var startDateLabel = new Label
+            _startDateLabel = new Label
             {
                 FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
-                TextColor = Color.Black
+                TextColor = Color.White
             };
-            startDateLabel.SetBinding(Label.TextProperty, "Start", BindingMode.Default, null, "{0:dddd MMMM dd hh:mm tt}");
+            _startDateLabel.SetBinding(Label.TextProperty, "Start", BindingMode.Default, null, "{0:dddd MMMM dd hh:mm tt}");
 
-            var descriptionLabel = new Label
+            _descriptionLabel = new Label
             {
                 FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
                 LineBreakMode = LineBreakMode.WordWrap,
-                TextColor = Color.Black
-            
+                TextColor = Color.White
+
             };
-            descriptionLabel.SetBinding(Label.TextProperty, "Description");
+            _descriptionLabel.SetBinding(Label.TextProperty, "Description");
+
+            _detailsButton = new Button
+            {
+                Text = "...",
+                BackgroundColor = Color.Transparent,
+                TextColor = Color.White,                
+                BorderWidth = 0,
+                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Button))
+            };
+
+            _detailsButton.Clicked += DetailsButton_Clicked;
 
             var cell = new ViewCell
             {
-                View = GetView(nameLabel, startDateLabel, descriptionLabel),
+                View = GetView(),
                 Height = 100D
-            };
+            };            
 
             return cell;
 
         }
 
-        private static View GetView(Label nameLabel, Label startDateLabel, Label descriptionLabel)
+        private View GetView()
         {
             var titleLayout = new AbsoluteLayout();
-            titleLayout.Children.Add(nameLabel, new Rectangle(0F, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
-            
+            titleLayout.Children.Add(_nameLabel, new Rectangle(0F, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
+            titleLayout.Children.Add(_detailsButton, new Rectangle(1, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
 
-            //return absLayout;
             var dateLayout = new AbsoluteLayout();
-            dateLayout.Children.Add(startDateLabel, new Rectangle(1F, 0F, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
+            dateLayout.Children.Add(_startDateLabel, new Rectangle(1F, 0F, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
 
             var layout = new StackLayout
             {
@@ -114,10 +120,14 @@ namespace EABCMinistries.Pages
             };
             layout.Children.Add(titleLayout);
             layout.Children.Add(dateLayout);
-            layout.Children.Add(descriptionLabel);
-
+            layout.Children.Add(_descriptionLabel);
 
             return layout;
+        }
+
+        private void DetailsButton_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.Events.Add(new EventModel() { Description = "New Description", Name = "New Name", Start = DateTime.Now });
         }
 
         private void ItemTapped(object sender, ItemTappedEventArgs e)
