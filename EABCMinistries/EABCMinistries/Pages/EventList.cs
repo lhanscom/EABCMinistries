@@ -14,12 +14,17 @@ namespace EABCMinistries.Pages
     {
         protected EventListViewModel ViewModel => BindingContext as EventListViewModel;
 
-        public EventList()
+        public EventList(EventListViewModel vm)
         {
-            var vm = new EventListViewModel(new DataService.EventsContext());
             BindingContext = vm;
+            BackgroundColor = Color.Red.WithLuminosity(0.9);
+
+            this.IsBusy = true;
+
+            //var vm = new EventListViewModel(new DataService.EventsContext());
+            //BindingContext = vm;
             
-            var repeater = GetRepeaterView(vm);
+            var repeater = GetRepeaterView();
 
             Content = new StackLayout
             {
@@ -35,14 +40,15 @@ namespace EABCMinistries.Pages
                     repeater
                 }
             };
-            vm.GetEvents.Execute(null);
+            ViewModel.GetEvents.Execute(null);
+            this.IsBusy = false;
         }
 
-        private RepeaterView<EventModel> GetRepeaterView(EventListViewModel vm)
+        private RepeaterView<EventModel> GetRepeaterView()
         {
             var repeater = new RepeaterView<EventModel>
             {
-                ItemsSource = vm.Events,
+                ItemsSource = ViewModel.Events,
                 ItemTemplate = new DataTemplate(GetEventsTemplate)
             };
 
@@ -51,18 +57,35 @@ namespace EABCMinistries.Pages
 
         private ViewCell GetEventsTemplate()
         {
-            var nameLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Medium) };
+            var nameLabel = new Label
+            {
+                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                LineBreakMode = LineBreakMode.TailTruncation,
+                TextColor = Color.Black
+            };
             nameLabel.SetBinding(Label.TextProperty, "Name");
+            
 
-            var startDateLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Medium) };
-            startDateLabel.SetBinding(Label.TextProperty, "StartDate");
+            var startDateLabel = new Label
+            {
+                FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
+                TextColor = Color.Black
+            };
+            startDateLabel.SetBinding(Label.TextProperty, "Start", BindingMode.Default, null, "{0:dddd MMMM dd hh:mm tt}");
 
-            var descriptionLabel = new Label { Font = Font.SystemFontOfSize(NamedSize.Small) };
+            var descriptionLabel = new Label
+            {
+                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+                LineBreakMode = LineBreakMode.WordWrap,
+                TextColor = Color.Black
+            
+            };
             descriptionLabel.SetBinding(Label.TextProperty, "Description");
 
             var cell = new ViewCell
             {
-                View = GetView(nameLabel, startDateLabel, descriptionLabel)
+                View = GetView(nameLabel, startDateLabel, descriptionLabel),
+                Height = 100D
             };
 
             return cell;
@@ -71,28 +94,23 @@ namespace EABCMinistries.Pages
 
         private static View GetView(Label nameLabel, Label startDateLabel, Label descriptionLabel)
         {
-            //var absLayout = new AbsoluteLayout()
-            //{
-            //    Children =
-            //    {
-            //        startDateLabel,
-            //        nameLabel,
-            //        descriptionLabel
-            //    }
-            //};
-           
+            var titleLayout = new AbsoluteLayout();
+            titleLayout.Children.Add(nameLabel, new Rectangle(0F, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
+            
+
             //return absLayout;
+            var dateLayout = new AbsoluteLayout();
+            dateLayout.Children.Add(startDateLabel, new Rectangle(1F, 0F, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.PositionProportional);
 
             var layout = new StackLayout
             {
                 Spacing = 1,
-                Children =
-                {
-                    startDateLabel,
-                    nameLabel,
-                    descriptionLabel
-                }
+                Padding = new Thickness(1D, 10D, 1D, 10D)
             };
+            layout.Children.Add(titleLayout);
+            layout.Children.Add(dateLayout);
+            layout.Children.Add(descriptionLabel);
+
 
             return layout;
         }
@@ -110,6 +128,11 @@ namespace EABCMinistries.Pages
             base.OnAppearing();
 
             ViewModel.GetEvents.Execute(null);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return base.OnBackButtonPressed();
         }
     }
 }

@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="EventsContext.cs" />
     <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\PrayerRequestModel.cs" />
+    <Compile Include="PrayerRequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

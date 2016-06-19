@@ -13,7 +13,11 @@ namespace EABCMinistries
     {
         public App()
         {
-            var navPage = new NavigationPage(new EventList() { Title = "EventList", BindingContext = new EventListViewModel(new EventsContext())});
+            //var navPage = new NavigationPage(new EventList() { Title = "EventList", BindingContext = new EventListViewModel(new EventsContext())});
+            var navPage = new NavigationPage(new Home())
+            {
+                Title = "Home"
+            };
 
             MainPage = navPage;
             // The root page of your application
