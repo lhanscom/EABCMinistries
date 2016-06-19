@@ -44,7 +44,7 @@ namespace EABCMinistries.Pages
             this.IsBusy = false;
         }
 
-        private RepeaterView<EventModel> GetRepeaterView()
+        private View GetRepeaterView()
         {
             var repeater = new RepeaterView<EventModel>
             {
@@ -52,7 +52,12 @@ namespace EABCMinistries.Pages
                 ItemTemplate = new DataTemplate(GetEventsTemplate)
             };
 
-            return repeater;
+            var scrollView = new ScrollView()
+            {
+                Content = repeater
+            };
+
+            return scrollView;
         }
 
         private ViewCell GetEventsTemplate()

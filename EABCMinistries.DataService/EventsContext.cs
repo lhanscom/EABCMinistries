@@ -13,7 +13,11 @@ namespace EABCMinistries.DataService
             return new List<EventModel>()
             {
                 new EventModel() {Name = "First Event", Description = "First Event Description, and it goes on for a while. This just keeps going. I can not do everything for you , and if I don't than these stones will shout.Speak to me and don't speak softly. He didn't see his brother but there was his mother.", Start = new DateTime(2016,7,12,13,30,0)},
-                new EventModel() {Name = "Second Event", Description = "Second Event Description", Start = new DateTime(2016,8,12,18,0,0)}
+                new EventModel() {Name = "Second Event", Description = "Second Event Description", Start = new DateTime(2016,8,12,18,0,0)},
+                new EventModel() {Name = "Third Event", Description = "First Event Description, and it goes on for a while. This just keeps going. I can not do everything for you , and if I don't than these stones will shout.Speak to me and don't speak softly. He didn't see his brother but there was his mother.", Start = new DateTime(2016,7,12,13,30,0)},
+                new EventModel() {Name = "Forth Event", Description = "Second Event Description", Start = new DateTime(2016,8,12,18,0,0)},
+                new EventModel() {Name = "Fifth Event", Description = "First Event Description, and it goes on for a while. This just keeps going. I can not do everything for you , and if I don't than these stones will shout.Speak to me and don't speak softly. He didn't see his brother but there was his mother.", Start = new DateTime(2016,7,12,13,30,0)},
+                new EventModel() {Name = "Sixth Event", Description = "Second Event Description", Start = new DateTime(2016,8,12,18,0,0)}
             };
         }
     }

@@ -24,19 +24,53 @@ namespace EABCMinistries.Pages
                 Text = "Prayer Requests"
             };
             prayerButton.Clicked += PrayerButton_Clicked;
+            var logo = new Image
+            {
+                Source = "./Resources/drawable/logo.png",
+                Aspect = Aspect.AspectFill
+            };
 
-            Content = new StackLayout
+            var logoLayout = new AbsoluteLayout
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                //Padding = new Thickness(0, 150),
+                Children = {logo}
+            };
+
+ 
+            //BackgroundImage = "./Resources/drawable/logo.png";
+            
+            
+            var layout = new StackLayout
             {
                 Children = {
-                    new Label
-                    {
-                        Text = "Welcome to EABC",
-                        FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label))
-                    },
+                    //new Label
+                    //{
+                    //    Text = "Welcome to EABC",
+                    //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label))
+                    //},
+                    logoLayout,
                     eventsButton,
                     prayerButton
                 }
             };
+
+
+            //var biLayout = new AbsoluteLayout
+            //{
+            //    VerticalOptions = LayoutOptions.FillAndExpand,
+            //    HorizontalOptions = LayoutOptions.FillAndExpand,
+            //    Children =
+            //    {
+            //        logoLayout,
+            //        layout
+            //    }
+            //};
+            //biLayout.Children.Add(logo, new Rectangle(0,.5,AbsoluteLayout.AutoSize,AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.All);
+            //biLayout.Children.Add(layout, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+
+            Content = layout;
         }
 
         private void PrayerButton_Clicked(object sender, EventArgs e)
