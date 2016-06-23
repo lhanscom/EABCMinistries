@@ -28,6 +28,12 @@ namespace EABCMinistries.ViewModels
 
         public Command GetPrayerRequests => _getPrayerRequests ?? (_getPrayerRequests = new Command(async () => await ExecuteGetPrayerRequests()));
 
+        public async Task InsertPrayerRequest(PrayerRequestModel prayerRequest)
+        {
+            await _prayerRequestContext.InsertPrayerRequest(prayerRequest);
+            await FetchPrayerRequests();
+        }
+
         private async Task ExecuteGetPrayerRequests()
         {
             if (PrayerRequestCollection.Count >= 1) return;

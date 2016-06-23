@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading.Tasks;
 using EABCMinistries.DataService;
 using EABCMinistries.DataService.Models;
 using EABCMinistries.ViewModels;
@@ -17,8 +18,9 @@ namespace EABCMinistries.Pages
 
         public PrayerRequests(PrayerRequestViewModel vm)
         {
+            
             BindingContext = vm;
-            ToolbarItems.Add(new ToolbarItem("New", null, NewPrayerRequest));
+            ToolbarItems.Add(new ToolbarItem("New", null, async () => await NewPrayerRequest()));
             Content = new StackLayout
             {                
                 Children = {
@@ -29,9 +31,12 @@ namespace EABCMinistries.Pages
             ViewModel.GetPrayerRequests.Execute(null);
         }
 
-        private void NewPrayerRequest()
+        private async Task NewPrayerRequest()
         {
-            ViewModel.PrayerRequestCollection.Add( new PrayerRequestModel() {Created = DateTime.Now, PrayerRequestId = ViewModel.PrayerRequestCollection.Count + 1, Request = "New Request"});
+            var prayerRequest = new PrayerRequestModel() {Request = "New Request"};
+            await ViewModel.InsertPrayerRequest(prayerRequest);
+
+            //ViewModel.GetPrayerRequests.Execute(null);
         }
 
         private RepeaterView<PrayerRequestModel> GetRepeaterView()

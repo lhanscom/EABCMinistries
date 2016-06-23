@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/EabcMobileApp_Xamarin_Android.zip
+/EabcMobileApp_Runtime.zip

@@ -49,7 +49,8 @@ namespace EABCMinistries.Pages
         {
             _eventsButton = new Button()
             {
-                Text = "Events"
+                Text = "Events",
+                BorderRadius = 5
             };
             _eventsButton.Clicked += EventsButton_Clicked;
 
@@ -62,7 +63,8 @@ namespace EABCMinistries.Pages
 
         private void PrayerButton_Clicked(object sender, EventArgs e)
         {
-            var vm = new PrayerRequestViewModel(new PrayerRequestContext());
+            var context = new PrayerRequestContext();
+            var vm = new PrayerRequestViewModel(context);
             var navPage = new NavigationPage(new PrayerRequests(vm)
             {
                 Title = "Prayer Requests"                
@@ -72,12 +74,14 @@ namespace EABCMinistries.Pages
 
         private void EventsButton_Clicked(object sender, EventArgs e)
         {
-            var vm = new EventListViewModel(new EventsContext());
-            var navPage = new NavigationPage(new EventList(vm)
-            {
-                Title = "Events"
-            });
-            Navigation.PushAsync(navPage);
+            Device.OpenUri(new Uri("http://www.eabcministries.com/calendar"));
+            //Todo: Implement an events process? 
+            //var vm = new EventListViewModel(new EventsContext());
+            //var navPage = new NavigationPage(new EventList(vm)
+            //{
+            //    Title = "Events"
+            //});
+            //Navigation.PushAsync(navPage);
         }
     }
 }

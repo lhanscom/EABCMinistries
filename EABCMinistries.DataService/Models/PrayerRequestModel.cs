@@ -9,6 +9,8 @@ namespace EABCMinistries.DataService.Models
 {
     public class PrayerRequestModel : ObservableObject
     {
+        public int id { get; set; }
+
         public int PrayerRequestId { get; set; }
 
         public string Request { get; set; }
