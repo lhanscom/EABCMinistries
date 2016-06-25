@@ -57,7 +57,7 @@ namespace EABCMinistries.Pages
                 FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
                 TextColor = Color.White
             };
-            requestDateLabel.SetBinding(Label.TextProperty, "Created", BindingMode.Default, null, "{0:dddd MMMM dd hh:mm tt}");
+            requestDateLabel.SetBinding(Label.TextProperty, "CreatedAt", BindingMode.Default, null, "{0:dddd MMMM dd hh:mm tt}");
 
             var requestLabel = new Label
             {

@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[TodoItem] (
+    [Id]       VARCHAR(50)            NOT NULL DEFAULT NEWID(),
+    [Text]     VARCHAR (8000) NULL,
+    [Complete] BIT            DEFAULT ((0)) NOT NULL,
+    [Version] TIMESTAMP NOT NULL, 
+    [CreatedAt] DATETIMEOFFSET NULL DEFAULT SYSDATETIMEOFFSET(), 
+    [UpdatedAt] DATETIMEOFFSET NULL DEFAULT SYSDATETIMEOFFSET(), 
+    [Deleted] BIT NOT NULL DEFAULT 0, 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

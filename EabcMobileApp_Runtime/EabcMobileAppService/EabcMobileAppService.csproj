@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\PrayerRequestController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataObjects\PrayerRequestModel.cs" />
@@ -177,6 +178,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\EabcApp %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\EabcApp.pubxml" />
     <None Include="Properties\PublishProfiles\EABCMobileApp.pubxml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

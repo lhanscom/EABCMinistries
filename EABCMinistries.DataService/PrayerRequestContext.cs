@@ -12,7 +12,7 @@ namespace EABCMinistries.DataService
     {
         private readonly MobileServiceClient _client;
 
-        const string applicationURL = @"https://eabcmobileapp.azurewebsites.net";
+        const string applicationURL = @"https://eabcapp.azurewebsites.net/";
 
         public PrayerRequestContext()
         {

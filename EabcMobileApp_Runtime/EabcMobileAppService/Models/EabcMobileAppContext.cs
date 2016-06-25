@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Microsoft.Azure.Mobile.Server;
@@ -16,7 +17,7 @@ namespace EabcMobileAppService.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
-        private const string connectionStringName = "Name=MS_TableConnectionString";
+        private const string connectionStringName = "Name=Eabc_ConnectionString";
 
         public EabcMobileAppContext() : base(connectionStringName)
         {
